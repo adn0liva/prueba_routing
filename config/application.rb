@@ -11,6 +11,7 @@ module PruebaRouting
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
     config.i18n.default_locale = :es
+    config.time_zone = 'Santiago'
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -18,5 +19,10 @@ module PruebaRouting
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.generators do |g|
+      g.assets false
+      g.system_tests false # este por defecto desactiva test_unit por lo que no es necesario desactivarlo despues
+      g.test_framework false
+    end
   end
 end
