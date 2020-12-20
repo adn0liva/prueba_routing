@@ -1,0 +1,35 @@
+%h1 Listing routes
+
+%table
+  %thead
+    %tr
+      %th Starts at
+      %th Ends at
+      %th Load type
+      %th Load sum
+      %th Cities
+      %th Stops amount
+      %th Vehicle
+      %th Driver
+      %th
+      %th
+      %th
+
+  %tbody
+    - @routes.each do |route|
+      %tr
+        %td= route.starts_at
+        %td= route.ends_at
+        %td= route.load_type
+        %td= route.load_sum
+        %td= route.cities
+        %td= route.stops_amount
+        %td= route.vehicle
+        %td= route.driver
+        %td= link_to 'Show', route
+        %td= link_to 'Edit', edit_route_path(route)
+        %td= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Route', new_route_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_20_200352) do
+ActiveRecord::Schema.define(version: 2020_12_20_201047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,12 +21,30 @@ ActiveRecord::Schema.define(version: 2020_12_20_200352) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vehicle_id"
+    t.index ["vehicle_id"], name: "index_drivers_on_vehicle_id"
   end
 
   create_table "load_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.bigint "load_type_id", null: false
+    t.float "load_sum"
+    t.string "cities", array: true
+    t.integer "stops_amount"
+    t.bigint "vehicle_id"
+    t.bigint "driver_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["driver_id"], name: "index_routes_on_driver_id"
+    t.index ["load_type_id"], name: "index_routes_on_load_type_id"
+    t.index ["vehicle_id"], name: "index_routes_on_vehicle_id"
   end
 
   create_table "vehicles", force: :cascade do |t|
@@ -39,6 +57,10 @@ ActiveRecord::Schema.define(version: 2020_12_20_200352) do
     t.index ["load_type_id"], name: "index_vehicles_on_load_type_id"
   end
 
+  add_foreign_key "drivers", "vehicles"
+  add_foreign_key "routes", "drivers"
+  add_foreign_key "routes", "load_types"
+  add_foreign_key "routes", "vehicles"
   add_foreign_key "vehicles", "drivers"
   add_foreign_key "vehicles", "load_types"
 end
