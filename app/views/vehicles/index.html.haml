@@ -1,0 +1,25 @@
+%h1 Listing vehicles
+
+%table
+  %thead
+    %tr
+      %th Capacity
+      %th Load type
+      %th Driver
+      %th
+      %th
+      %th
+
+  %tbody
+    - @vehicles.each do |vehicle|
+      %tr
+        %td= vehicle.capacity
+        %td= vehicle.load_type
+        %td= vehicle.driver
+        %td= link_to 'Show', vehicle
+        %td= link_to 'Edit', edit_vehicle_path(vehicle)
+        %td= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Vehicle', new_vehicle_path
