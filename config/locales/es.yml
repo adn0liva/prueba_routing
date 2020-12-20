@@ -13,3 +13,5 @@ es:
   driver_id: ID Conductor
   route_id: ID Ruta
   listing_routes: Todas las rutas
+  capacity: Capacidad
+  listing_vehicles: Todos los vehículos
