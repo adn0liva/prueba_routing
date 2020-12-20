@@ -1,16 +1,16 @@
-%h1 Listing routes
+%h1=t(:listing_routes)
 
 %table
   %thead
     %tr
-      %th Starts at
-      %th Ends at
-      %th Load type
-      %th Load sum
-      %th Cities
-      %th Stops amount
-      %th Vehicle
-      %th Driver
+      %th=t(:starts_at)
+      %th=t(:ends_at)
+      %th=t(:load_type)
+      %th=t(:load_sum)
+      %th=t(:cities)
+      %th=t(:stops_amount)
+      %th=t(:vehicle)
+      %th=t(:driver)
       %th
       %th
       %th
@@ -20,16 +20,16 @@
       %tr
         %td= route.starts_at
         %td= route.ends_at
-        %td= route.load_type
+        %td= route.load_type.name
         %td= route.load_sum
-        %td= route.cities
+        %td= route.cities.join(', ')
         %td= route.stops_amount
         %td= route.vehicle
         %td= route.driver
-        %td= link_to 'Show', route
-        %td= link_to 'Edit', edit_route_path(route)
-        %td= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' }
+        -# %td= link_to 'Show', route
+        -# %td= link_to 'Edit', edit_route_path(route)
+        -# %td= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Route', new_route_path
+-# = link_to 'New Route', new_route_path

@@ -6,6 +6,10 @@ class RoutesController < ApplicationController
   def index
     @routes = Route.all
   end
+  ## rutas asignadas
+  def assigned
+    @routes = Route.all
+  end
 
   # GET /routes/1
   # GET /routes/1.json

@@ -1,2 +1,15 @@
 es:
   hello: "Hola mundo"
+  starts_at: Hora inicio ruta
+  ends_at: Hora fin ruta 
+  load_type: Tipo de carga
+  load_sum: Total de carga
+  cities: Comunas
+  stops_amount: Total paradas
+  vehicle: Vehículo
+  driver: Conductor
+  assigned_routes: Rutas asignadas
+  vehicle_id: ID Vehículo
+  driver_id: ID Conductor
+  route_id: ID Ruta
+  listing_routes: Todas las rutas
