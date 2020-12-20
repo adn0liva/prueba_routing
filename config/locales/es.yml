@@ -15,3 +15,7 @@ es:
   listing_routes: Todas las rutas
   capacity: Capacidad
   listing_vehicles: Todos los vehículos
+  listing_drivers: Todos los conductores
+  name: Nombre
+  phone: Teléfono
+  email: Correo 

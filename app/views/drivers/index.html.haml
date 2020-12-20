@@ -1,12 +1,12 @@
-%h1 Listing drivers
+%h1=t(:listing_drivers)
 
 %table
   %thead
     %tr
-      %th Name
-      %th Phone
-      %th Email
-      %th Vehicle
+      %th=t(:name)
+      %th=t(:phone)
+      %th=t(:email)
+      %th=t(:vehicle_id)
       %th
       %th
       %th
@@ -17,11 +17,11 @@
         %td= driver.name
         %td= driver.phone
         %td= driver.email
-        %td= driver.vehicle
-        %td= link_to 'Show', driver
-        %td= link_to 'Edit', edit_driver_path(driver)
-        %td= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' }
+        %td= driver.vehicle&.id
+        -# %td= link_to 'Show', driver
+        -# %td= link_to 'Edit', edit_driver_path(driver)
+        -# %td= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Driver', new_driver_path
+-# = link_to 'New Driver', new_driver_path
