@@ -8,7 +8,7 @@ conductores = [
   {id: 6, name: 'Matias Perez', phone: '+5691111116', email: 'maperez@conductores.cl', vehicle_id: 6}
 ]
 conductores.each do |c_hash|
-  d_objeto = Driver.find_or_create_by(id: c_hash[:id])
+  d_objeto = Driver.find_or_initialize_by(id: c_hash[:id])
   d_objeto.update(c_hash.slice!(:id))
 end
 
@@ -18,5 +18,6 @@ ids_vehiculos_conductores = [
   {vehiculo_id: 6, conductor_id: 6}
 ]
 ids_vehiculos_conductores.each do |vc_hash|
-  Vehicle.find(vc_hash[:vehiculo_id]).update(driver_id: vc_hash[:conductor_id])
+  v_objeto = Vehicle.find(vc_hash[:vehiculo_id])
+  v_objeto.update(driver_id: vc_hash[:conductor_id])
 end
