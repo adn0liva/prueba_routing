@@ -22,7 +22,7 @@ class Driver < ApplicationRecord
   def apto_para_ruta?(ruta)
     es_apto = false
     # si las paradas maximas estan dentro del rango del conductor 
-    paradas_dentro_rango = self.max_stops_accepted <= ruta.stops_amount 
+    paradas_dentro_rango = self.max_stops_accepted >= ruta.stops_amount 
     # y las comunas de la ruta son parte de las que usa el conductor es apto
     tiene_comunas_en_comun = self.tiene_comunas_en_ruta?(ruta)
     es_apto = paradas_dentro_rango && tiene_comunas_en_comun
