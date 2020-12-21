@@ -1,5 +1,4 @@
 class AsignarVehiculo
-  # ToDo: ver campos serviran de salida, o los que faltan de entrada
   # definimos atributos para el servicio
   attr_accessor :ruta_id, :ruta, :vehiculos_disponibles, :vehiculo_a_asignar, :conductor_a_asignar, :rutas_asignadas_del_dia, :salida
   
@@ -11,52 +10,44 @@ class AsignarVehiculo
     }
   end
 
-  # buscamos una ruta similar, que tenga espacio de tiempo disponible
-  def buscar_vehiculo
+  # metodo central que realiza la asignacion
+  def call
     if ruta.asignada?
       # indicamos que ya fue asignada y no se puede cambiar
       salida[:mensaje] = 'Ruta ya fue asignada'
     else
+      actualizado = false
       scope_tipo_carga = ruta.load_type_id == LoadType::TC_GENERAL_ID ? :carga_general : :carga_refrigerada
       # obtenemos rutas asignadas del mismo tipo
       rutas_asignadas_por_tipo = Route.asignadas.send(scope_tipo_carga)
-      p "rutas_asignadas_por_tipo: #{rutas_asignadas_por_tipo.pluck(:id)}"
       # filtramos por fecha
       @rutas_asignadas_del_dia = rutas_asignadas_por_tipo.por_dia(ruta.starts_at)
       # si hay rutas para el dia buscamos si podemos incluir entre las horas disponibles
       unless rutas_asignadas_del_dia.blank?
-        p "rutas_asignadas_del_dia: #{rutas_asignadas_del_dia.pluck(:id)}"
         conductor_vehiculo_asignado = revisar_espacio_en_rutas()
         if conductor_vehiculo_asignado
-          p "conductor agregado entre rutas"
           actualizado = actualizamos_ruta()
-          # le cambiamos el estado luego de actualizar
-          salida[:estado] = actualizado
         else
-          # buscamos en vehiculos disponibles
-          # si no hay rutas para el dia buscamos vehiculos disponibles
-          buscar_vehiculos_disponibles()
-          # asignamos al conductor
-          asignar_conductor()
-          p "conductor agregado de los no asignados"
-          actualizado = actualizamos_ruta()
-          # le cambiamos el estado luego de actualizar
-          salida[:estado] = actualizado
+          actualizado = actualizar_ruta_con_vehiculo_conductor()
         end
       else
-        # si no hay rutas para el dia buscamos vehiculos disponibles
-        buscar_vehiculos_disponibles()
-        # asignamos al conductor
-        asignar_conductor()
-
-        p "vehiculo_a_asignar: #{vehiculo_a_asignar.id}"
-        p "conductor_a_asignar: #{conductor_a_asignar.id}"
-        actualizado = actualizamos_ruta()
-        # le cambiamos el estado luego de actualizar
-        salida[:estado] = actualizado
+        actualizado = actualizar_ruta_con_vehiculo_conductor()
       end
+      # le cambiamos el estado luego de actualizar
+      salida[:estado] = actualizado
+      salida[:mensaje] = 'Ruta correctamente asignada' if actualizado
     end
     salida
+  end
+
+  def actualizar_ruta_con_vehiculo_conductor
+    # buscamos en vehiculos disponibles
+    buscar_vehiculos_disponibles()
+    # asignamos al conductor
+    asignar_conductor()
+    # p "conductor agregado de los no asignados"
+    actualizado = actualizamos_ruta()
+    actualizado
   end
 
   def revisar_espacio_en_rutas
@@ -66,11 +57,8 @@ class AsignarVehiculo
     rutas_agrupadas.each do |vehiculo_id, rutas|
       # recorremos las rutas para ver si hay espacio
       rango_horario_usado = comparar_horas_rutas_del_dia(rutas)
-      
       # si el rango esta usado saltamos al siguiente vehiculo
-      if rango_horario_usado
-        # do nothing
-      else 
+      unless rango_horario_usado
         # si el rango esta disponible, revisamos vehiculo y conductor
         encontrarmos_vehiculo_conductor = asignar_vehiculo_de_rutas(rutas)
         # si se asigno vehiculo, porque el conductor es apto detenemos busqueda
@@ -82,19 +70,21 @@ class AsignarVehiculo
 
   def comparar_horas_rutas_del_dia(rutas)
     horas_usadas = []
+    # obtenemos todas las horas usadas
     rutas.each do |ruta_asignada|
       horas_usadas << (ruta_asignada.starts_at..ruta_asignada.ends_at)
     end
     usado = false
     rango_ruta = ruta.starts_at..ruta.ends_at
+    # buscamos si hay espacio disponible
     horas_usadas.each do |rango_horas|
       usado = rango_horas.cover?(rango_ruta)
       break if usado
     end
-
     usado
   end
 
+  ## no usado, se deja por posible uso
   def comparar_horas_rutas(ruta_asignada)
     tiempo_tomado = ruta_asignada.starts_at..ruta_asignada.ends_at
     usado = tiempo_tomado.cover?(ruta.starts_at..ruta.ends_at)
@@ -102,6 +92,7 @@ class AsignarVehiculo
   end
 
   def asignar_vehiculo_de_rutas(rutas)
+    # todas las rutas son del mismo conductor, asi que obtengo la primera
     primera_ruta = rutas.first
     conductor_ruta = primera_ruta.driver
     vehiculo_asignado = false
@@ -128,7 +119,6 @@ class AsignarVehiculo
     vehiculos_disponibles.each do |vehiculo|
       # si tiene conductor revisamos si es apto para la ruta 
       if vehiculo.tiene_conductor?
-        p 'vehiculo tiene conductor'
         conductor_apto = vehiculo.driver.apto_para_ruta?(ruta)
         conductor_ideal << vehiculo.driver
       else
@@ -148,15 +138,17 @@ class AsignarVehiculo
   end
 
   def actualizamos_ruta
-    p "vehiculo_a_asignar: #{vehiculo_a_asignar.id}"
-    p "conductor_a_asignar: #{conductor_a_asignar.id}"
     actualizado = false
     # revisamos si tenemos vehiculo seleccionado y conductor asignado para actualizar la ruta
     if vehiculo_a_asignar.present? && conductor_a_asignar.present?
-      #ToDo: actualizar ruta
-      actualizado = true
+      # Actualizamos la ruta
+      actualizado = ruta.update({
+        driver_id: conductor_a_asignar.id,
+        vehicle_id: vehiculo_a_asignar.id
+      })
     else
-      # ToDo: indicamos el error, alguno de los campos está en blanco
+      # indicamos el error, alguno de los campos está en blanco
+      salida[:mensaje] = vehiculo_a_asignar.present? ? 'No se pudo encontrar conductor apto' : 'No se pudo encontrar vehiculo disponible'
     end
     actualizado
   end
