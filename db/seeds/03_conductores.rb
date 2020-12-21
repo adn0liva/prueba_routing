@@ -1,3 +1,4 @@
+puts "Cargamos los conductores..."
 # definimos variables bases
 comunas_centro = ['Santiago','Estacion central', 'Providencia']
 comunas_oriente = ['Las condes','Vitacura', 'Lo barnechea']

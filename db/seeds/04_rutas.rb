@@ -1,3 +1,4 @@
+puts "Cargamos las Rutas..."
 # definimos variables bases
 hora_base =  Time.parse('2020-12-21 08:00')
 comunas_centro = ['Santiago','Estacion central', 'Providencia']
@@ -9,10 +10,10 @@ rutas = [
   { id: 3, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 8, cities: comunas_centro, stops_amount: 8 },
   
   { id: 4, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 28, cities: comunas_oriente, stops_amount: 25 },
-  { id: 5, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 28, cities: comunas_oriente, stops_amount: 25, vehicle_id: 5, driver_id: 5 },
-  { id: 6, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 28, cities: comunas_oriente, stops_amount: 25, vehicle_id: 5, driver_id: 5 },
+  { id: 5, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 28, cities: comunas_oriente, stops_amount: 25, vehicle_id: 2, driver_id: 5 },
+  { id: 6, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 28, cities: comunas_oriente, stops_amount: 25, vehicle_id: 2, driver_id: 5 },
   
-  { id: 7, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 58, cities: comunas_poniente, stops_amount: 50, vehicle_id: 4, driver_id: 5 },
+  { id: 7, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 58, cities: comunas_poniente, stops_amount: 50 },
   { id: 8, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 58, cities: comunas_poniente, stops_amount: 50 },
   { id: 9, load_type_id: LoadType::TC_GENERAL_ID, load_sum: 58, cities: comunas_poniente, stops_amount: 50 },
   

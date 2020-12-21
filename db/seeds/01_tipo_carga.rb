@@ -1,3 +1,4 @@
+puts "Cargamos los tipos de carga..."
 # cargamos los tipos de carga, les entregamos el id para poder usar constantes en el modelo
 tipos_de_carga = [
   {id: 1, name: 'General'},

@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 2020_12_20_212848) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
     t.bigint "load_type_id", null: false
-    t.float "load_sum"
+    t.float "load_sum", null: false
     t.string "cities", array: true
-    t.integer "stops_amount"
+    t.integer "stops_amount", null: false
     t.bigint "vehicle_id"
     t.bigint "driver_id"
     t.datetime "created_at", precision: 6, null: false

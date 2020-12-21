@@ -1,3 +1,4 @@
+puts "Cargamos los vehículos..."
 # agregamos vehiculos base para realizar pruebas
 vehiculos = [
   { id: 1, capacity: 10, load_type_id: LoadType::TC_GENERAL_ID },
