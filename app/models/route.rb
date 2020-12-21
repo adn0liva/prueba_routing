@@ -4,7 +4,7 @@ class Route < ApplicationRecord
   belongs_to :driver, optional: true
 
   scope :sin_asignar, -> { where(vehicle_id: nil, driver_id: nil) }
-  scope :asignadas, -> { where(vehicle_id: !nil, driver_id: !nil) }
+  scope :asignadas, -> { where.not(vehicle_id: nil, driver_id: nil) }
   scope :carga_general, -> { where(load_type_id: LoadType::TC_GENERAL_ID) }
   scope :carga_refrigerada, -> { where(load_type_id: LoadType::TC_REFRIGERADA_ID) }
   scope :por_dia, ->(fecha) { 
