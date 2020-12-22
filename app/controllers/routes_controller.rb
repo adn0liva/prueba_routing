@@ -8,7 +8,7 @@ class RoutesController < ApplicationController
   end
   ## rutas asignadas
   def assigned
-    @routes = Route.all
+    @routes = Route.asignadas
   end
 
   # GET /routes/1
