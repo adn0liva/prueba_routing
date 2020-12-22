@@ -9,11 +9,8 @@
       %th=t(:load_sum)
       %th=t(:cities)
       %th=t(:stops_amount)
-      %th=t(:vehicle)
-      %th=t(:driver)
-      %th
-      %th
-      %th
+      %th=t(:vehicle_id)
+      %th=t(:driver_id)
 
   %tbody
     - @routes.each do |route|
@@ -24,8 +21,8 @@
         %td= route.load_sum
         %td= route.cities.join(', ')
         %td= route.stops_amount
-        %td= route.vehicle
-        %td= route.driver
+        %td= route.vehicle&.id
+        %td= route.driver&.id
         -# %td= link_to 'Show', route
         -# %td= link_to 'Edit', edit_route_path(route)
         -# %td= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' }
