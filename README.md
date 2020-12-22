@@ -57,6 +57,7 @@ Caso para agregar rutas una a una a medida que van apareciendo (creando).
 Se verifica que la ruta que se trata de asignar no esté asignada. 
 Luego se verifica si hay rutas ya asignadas del mismo tipo de carga y para el mismo día.
 Si se encuentran, se verifica que por vehículo tenga espacio de tiempo disponible con el horario de la nueva ruta. Si hay espacio para agregar la nueva ruta, se revisa finalmente al conductor de la ruta ya asignada que la cantidad de paradas máximas sea mayor o igual a la de la nueva ruta y que entre las comunas que son del conductor y las de la ruta, en al menos 1 haya concordancia. Siendo así, se le asigna el vehículo y el conductor a la ruta. Para el caso contrario que el conductor no sea apto, se revisa si hay otra ruta ya asignada de las misma características y se repite el proceso.
+
 En caso de que las rutas ya asignadas no tengan espacio horario para la nueva ruta se asignará un vehículo que tenga el tipo de carga de la ruta y la capacidad necesaria para la ruta; luego se asignará el conductor apropiado que cumpla con la cantidad de detenciones máximas y las comunas de la ruta al menos una sea igual a la del conductor.
 En caso de no haber vehículos disponibles o conductores apropiados para la ruta se informará el error.
 
