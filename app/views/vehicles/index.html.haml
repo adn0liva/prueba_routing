@@ -1,25 +1,21 @@
-%h1=t(:listing_vehicles)
-
-%table
-  %thead
-    %tr
-      %th=t(:capacity)
-      %th=t(:load_type)
-      %th=t(:driver)
-      %th
-      %th
-      %th
-
-  %tbody
-    - @vehicles.each do |vehicle|
-      %tr
-        %td= vehicle.capacity
-        %td= vehicle.load_type.name
-        %td= vehicle.driver&.name
-        -# %td= link_to 'Show', vehicle
-        -# %td= link_to 'Edit', edit_vehicle_path(vehicle)
-        -# %td= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
+.card.mt-3
+  .card-header
+    %h3=t(:listing_vehicles)
+  .card-body
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th=t(:capacity)
+          %th=t(:load_type)
+          %th=t(:driver)
+      %tbody
+        - @vehicles.each do |vehicle|
+          %tr
+            %td= vehicle.capacity
+            %td= vehicle.load_type.name
+            %td= vehicle.driver&.name
+            -# %td= link_to 'Show', vehicle
+            -# %td= link_to 'Edit', edit_vehicle_path(vehicle)
+            -# %td= link_to 'Destroy', vehicle, method: :delete, data: { confirm: 'Are you sure?' }
 
 -# = link_to 'New Vehicle', new_vehicle_path
