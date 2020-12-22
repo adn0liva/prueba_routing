@@ -16,9 +16,9 @@ Para la instalación del proyecto seguir los siguientes pasos
 
 ```bash
 # clonar el repositorio
-git clone <repo_path>
+git clone git@github.com:adn0liva/prueba_routing.git
 # ir al directorio
-cd <repo_name>
+cd prueba_routing
 # crear la master key para las credenciales
 touch config/master.key; echo 07d72ddea223591d8ff02c41c107f311 >> config/master.key
 # configurar las credenciales de la base de datos
@@ -46,7 +46,7 @@ rails db:migrate
 rails db:seed
 
 # si se quieren cargar rutas para pruebas ejecutar tarea
-rails <contenedor:tarea>
+rails insertar:rutas_prueba
 
 ```
 
@@ -66,13 +66,13 @@ En caso de no haber vehículos disponibles o conductores apropiados para la ruta
 ```rails
 # ejecutar el servidor, por defecto se levanta en el puerto 3000
 rails s 
-# ir a ...
+# Cargará la lista de rutas y se podrá tener acceso a las listas de cada tabla en la base de datos
 
 ## ejecución como tarea rails
-rails <contenedor:tarea>
+rails rutas:asignar_vehiculo_conductor[<ruta_id>]
 
 ## ejecución a través de consola rails
 rails c
 # indicar id de ruta a asignar vehículo y conductor
-AsignarVehiculo.new({ruta_id: <id>}).call
+AsignarVehiculo.new({ruta_id: <ruta_id>}).call
 ```

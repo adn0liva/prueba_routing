@@ -22,8 +22,8 @@
             %td= route.load_sum
             %td= route.cities.join(', ')
             %td= route.stops_amount
-            %td= route.vehicle.id
-            %td= route.driver.id
+            %td= route.vehicle&.id
+            %td= route.driver&.id
             -# %td= link_to 'Show', route
             -# %td= link_to 'Edit', edit_route_path(route)
             -# %td= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' }

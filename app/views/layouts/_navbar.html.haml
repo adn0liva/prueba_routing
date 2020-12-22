@@ -1,11 +1,22 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %a.navbar-brand{:href => "#"}
-    =t(:prueba_routing)
+  = link_to t(:prueba_routing), root_path, { class: 'navbar-brand'}
   %button.navbar-toggler{"aria-controls" => "navbarNavAltMarkup", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarNavAltMarkup", "data-toggle" => "collapse", :type => "button"}
     %span.navbar-toggler-icon
   #navbarNavAltMarkup.collapse.navbar-collapse
     .navbar-nav
-      = link_to t(:routes), routes_path, { class: 'nav-item nav-link'}
-      = link_to t(:assigned_routes), assigned_routes_path, { class: 'nav-item nav-link'}
-      = link_to t(:drivers), drivers_path, { class: 'nav-item nav-link'}
-      = link_to t(:vehicles), vehicles_path, { class: 'nav-item nav-link'}
+      = link_to t(:routes), routes_path, { class: 'nav-item nav-link', data: {controller: :routes, action: :index}}
+      = link_to t(:assigned_routes), assigned_routes_path, { class: 'nav-item nav-link', data: {controller: :routes, action: :assigned}}
+      = link_to t(:drivers), drivers_path, { class: 'nav-item nav-link', data: {controller: :drivers, action: :index}}
+      = link_to t(:vehicles), vehicles_path, { class: 'nav-item nav-link', data: {controller: :vehicles, action: :index}}
+
+:javascript
+  // marcamos el navbar como activo
+  parametros = JSON.parse('#{raw params.to_json}');
+  rutas = document.getElementsByClassName("nav-item");
+  for(let ruta of rutas){
+    controller = ruta.dataset.controller;
+    action = ruta.dataset.action;
+    if (controller == parametros.controller && action == parametros.action){
+      ruta.classList.add("active");
+    }
+  };
