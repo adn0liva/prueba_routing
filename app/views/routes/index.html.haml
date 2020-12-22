@@ -1,0 +1,31 @@
+.card.mt-3
+  .card-header
+    %h3=t(:listing_routes)
+  .card-body
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th=t(:starts_at)
+          %th=t(:ends_at)
+          %th=t(:load_type)
+          %th=t(:load_sum)
+          %th=t(:cities)
+          %th=t(:stops_amount)
+          %th=t(:vehicle_id)
+          %th=t(:driver_id)
+      %tbody
+        - @routes.each do |route|
+          %tr
+            %td= route.starts_at
+            %td= route.ends_at
+            %td= route.load_type.name
+            %td= route.load_sum
+            %td= route.cities.join(', ')
+            %td= route.stops_amount
+            %td= route.vehicle&.id
+            %td= route.driver&.id
+            -# %td= link_to 'Show', route
+            -# %td= link_to 'Edit', edit_route_path(route)
+            -# %td= link_to 'Destroy', route, method: :delete, data: { confirm: 'Are you sure?' }
+
+-# = link_to 'New Route', new_route_path

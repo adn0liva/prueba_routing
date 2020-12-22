@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Capacity:
+  = @vehicle.capacity
+%p
+  %b Load type:
+  = @vehicle.load_type
+%p
+  %b Driver:
+  = @vehicle.driver
+
+= link_to 'Edit', edit_vehicle_path(@vehicle)
+\|
+= link_to 'Back', vehicles_path

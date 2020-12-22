@@ -1,0 +1,23 @@
+.card.mt-3
+  .card-header
+    %h3=t(:listing_drivers)
+  .card-body
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th=t(:name)
+          %th=t(:phone)
+          %th=t(:email)
+          %th=t(:vehicle_id)
+      %tbody
+        - @drivers.each do |driver|
+          %tr
+            %td= driver.name
+            %td= driver.phone
+            %td= driver.email
+            %td= driver.vehicle&.id
+            -# %td= link_to 'Show', driver
+            -# %td= link_to 'Edit', edit_driver_path(driver)
+            -# %td= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' }
+
+-# = link_to 'New Driver', new_driver_path

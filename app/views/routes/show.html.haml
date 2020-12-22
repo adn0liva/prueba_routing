@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Starts at:
+  = @route.starts_at
+%p
+  %b Ends at:
+  = @route.ends_at
+%p
+  %b Load type:
+  = @route.load_type
+%p
+  %b Load sum:
+  = @route.load_sum
+%p
+  %b Cities:
+  = @route.cities
+%p
+  %b Stops amount:
+  = @route.stops_amount
+%p
+  %b Vehicle:
+  = @route.vehicle
+%p
+  %b Driver:
+  = @route.driver
+
+= link_to 'Edit', edit_route_path(@route)
+\|
+= link_to 'Back', routes_path

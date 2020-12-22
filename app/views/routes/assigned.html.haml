@@ -1,0 +1,21 @@
+.card.mt-3
+  .card-header
+    %h3=t(:assigned_routes)
+  .card-body
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th=t(:vehicle_id)
+          %th=t(:driver_id)
+          %th=t(:route_id)
+          %th=t(:starts_at)
+          %th=t(:ends_at)
+      %tbody
+        - @routes.each do |route|
+          %tr
+            %td= route.vehicle_id
+            %td= route.driver_id
+            %td= route.id
+            %td= route.starts_at
+            %td= route.ends_at
+            
