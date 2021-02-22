@@ -10,6 +10,16 @@ class RoutesController < ApplicationController
   def assigned
     @routes = Route.asignadas
   end
+  ## asignar rutas
+  def assign_all
+    Route.sin_asignar.each do |ruta|
+      ruta_id_ = ruta.id
+      salida = AsignarVehiculo.new({ruta_id: ruta_id_}).call
+    end
+    respond_to do |format|
+      format.html { redirect_to assigned_routes_path, notice: 'Rutas asignadas' }
+    end
+  end
 
   # GET /routes/1
   # GET /routes/1.json

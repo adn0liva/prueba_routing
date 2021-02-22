@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :routes, only: [:index] do 
     collection do
       get :assigned
+      get :assign_all
     end
   end
   resources :vehicles, only: [:index]
